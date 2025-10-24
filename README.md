@@ -1,18 +1,22 @@
-# Avance 1 — Carga y exploración de datos en SQL
+# Proyecto Integrador — Avances 1 y 2
 
-Este documento cubre exclusivamente el Avance 1 del Proyecto Integrador. Se cargaron datos crudos en SQL, se armó un staging limpio para analizarlos y se desarrollaron las consultas pedidas. Para cada consigna, se incluye la salida (captura/tablas) y una interpretación breve.
+Este README cubre el Avance 1 (carga y exploración de datos) y resume el Avance 2 (trigger, índices y medición de performance). Para cada consigna, se incluye la salida (capturas/tablas) y una interpretación breve.
 
-## Contenido del entregable y estructura del proyecto
+## Formato de entrega y estructura del proyecto
 
-- SQL (create/transform/load/analysis/ops)
-  - Raw: `sql/01_raw/raw_load.sql`
-  - Staging: `sql/02_stg/stg_transform.sql`
-  - Modelo final: `sql/03_public/init_public.sql`, `sql/03_public/load_public.sql`
-  - Análisis: `sql/04_analysis/analysis_queries.sql`
-  - Operaciones: `sql/05_ops/triggers.sql`, `sql/05_ops/indexes.sql`
-- Evidencias (salidas): `documentación/avance1_capturas.md` y `documentación/capturas_txt/`
-- Datos CSV: `data/`
-- Documentación de repo: `.gitignore`, `CONTRIBUTING.md`, `.github/pull_request_template.md`
+- Entregables por avance
+  - Avance 1
+    - Script de análisis: `sql/04_analysis/analysis_queries.sql`
+    - Pipeline SQL: Raw `sql/01_raw/raw_load.sql` → Staging `sql/02_stg/stg_transform.sql` → Modelo `sql/03_public/*`
+    - Evidencias: `documentación/avance1_capturas.md` y `documentación/capturas_txt/`
+  - Avance 2 (rama develop)
+    - Trigger y función de monitoreo: `sql/05_ops/triggers.sql`
+    - Índices propuestos: `sql/05_ops/indexes.sql`
+    - Inserción de prueba + verificación: `sql/05_ops/avance2_insert_and_check.sql`
+    - Consultas para medir performance: `sql/04_analysis/av2_perf_query1_top_seller.sql`, `sql/04_analysis/av2_perf_query2_unique_customers.sql`
+    - Evidencias: `documentación/avance2_capturas.md` y archivos en `documentación/capturas_txt/`
+- Datos CSV: `data/` (ver nota sobre archivos grandes más abajo)
+- Documentación de repo: `.gitignore`, `.github/pull_request_template.md`
  
 
 Estructura actual (ruta base: `c:\Users\CTI23994\Dropbox\Data Engineering - HENRY\proyecto_integrador`):
@@ -21,7 +25,8 @@ Estructura actual (ruta base: `c:\Users\CTI23994\Dropbox\Data Engineering - HENR
 / (raíz)
 ├─ data/                       # CSV de entrada
 ├─ documentación/
-│  ├─ avance1_capturas.md      # evidencias del avance
+│  ├─ avance1_capturas.md      # evidencias Avance 1
+│  ├─ avance2_capturas.md      # guía y evidencias Avance 2
 │  ├─ capturas_txt/            # salidas en texto (no se listan todas aquí)
 │  └─ Consignas_Avances_1_2_3_UNIFICADO_v2.txt
 ├─ sql/
@@ -33,10 +38,13 @@ Estructura actual (ruta base: `c:\Users\CTI23994\Dropbox\Data Engineering - HENR
 │  │  ├─ init_public.sql
 │  │  └─ load_public.sql
 │  ├─ 04_analysis/
-│  │  └─ analysis_queries.sql
+│  │  ├─ analysis_queries.sql
+│  │  ├─ av2_perf_query1_top_seller.sql
+│  │  └─ av2_perf_query2_unique_customers.sql
 │  └─ 05_ops/
 │     ├─ indexes.sql
-│     └─ triggers.sql
+│     ├─ triggers.sql
+│     └─ avance2_insert_and_check.sql
 └─ README.md
 ```
 
@@ -166,7 +174,6 @@ Evidencia: `documentación/capturas_txt/imagen2_top10_y_ranking_categoria.txt`, 
 | Proporción por categoría (ventanas) | Participación ~2–3% por producto | Tabla en README; [`imagen2_proporcion_en_categoria.txt`](documentación/capturas_txt/imagen2_proporcion_en_categoria.txt) | Cumple |
 | Top 10 global y ranking por categoría | Ranking por categoría correcto | Tabla en README; [`imagen2_top10_y_ranking_categoria.txt`](documentación/capturas_txt/imagen2_top10_y_ranking_categoria.txt) | Cumple |
 | Concentración por categoría | top1_share y top1/top2 ratio | Tabla en README; [`imagen2_concentracion_por_categoria.txt`](documentación/capturas_txt/imagen2_concentracion_por_categoria.txt) | Cumple |
-| Trigger e índices (Avance 1) | Creación OK y evidencia | [`sql/05_ops/triggers.sql`](sql/05_ops/triggers.sql), [`sql/05_ops/indexes.sql`](sql/05_ops/indexes.sql) | Cumple |
 | Notebook Avance 1 | No requerido (sin evidencia) | — | No aplica |
 
 ## Decisiones técnicas (breve)
@@ -202,3 +209,18 @@ Cómo ejecutar (resumen):
 | Trigger de monitoreo | Registro en `stg.product_sales_monitor` cuando un producto supera 200.000 | `documentación/capturas_txt/av2_trigger_monitor.txt` |
 | Consulta 1 — Top vendedor por producto | EXPLAIN ANALYZE antes y después de índices | `documentación/capturas_txt/av2_perf_consulta1_antes.txt`, `documentación/capturas_txt/av2_perf_consulta1_despues.txt` |
 | Consulta 2 — Clientes únicos por producto | EXPLAIN ANALYZE antes y después de índices | `documentación/capturas_txt/av2_perf_consulta2_antes.txt`, `documentación/capturas_txt/av2_perf_consulta2_despues.txt` |
+
+### Resumen de performance (Avance 2)
+
+- Consulta 1 (Top vendedor por producto; caso product_id=103)
+  - Antes de índices: ~484 ms
+  - Después de índices: ~79 ms
+  - Mejora: ~6x (uso más eficiente de los índices compuestos)
+- Consulta 2 (Clientes únicos por producto + total general; caso product_id=103)
+  - Antes de índices: ~14.1 s
+  - Después de índices: ~8.3 s
+  - Mejora: ~1.7x (la parte por producto usa Index Only Scan; el DISTINCT global sigue siendo el costo dominante)
+
+### Nota sobre datos grandes
+
+- El archivo `data/sales.csv` no está versionado en el repositorio por superar 100 MB. Asegúrate de tenerlo localmente en `data/` para poder reconstruir el staging. Si se requiere compartirlo, usar un método alternativo (drive/LFS) indicado por la cátedra.
