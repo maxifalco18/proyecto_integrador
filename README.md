@@ -180,3 +180,10 @@ Evidencia: `documentación/capturas_txt/imagen2_top10_y_ranking_categoria.txt`, 
 - Se cumplieron todas las consultas y análisis del Avance 1, con evidencias y breves interpretaciones.
 - La adopción de los productos top es amplia (base de clientes grande) y los líderes no dominan sus categorías.
 - Pendiente opcional: entregar un notebook con los mismos resultados (si la cátedra lo pide) y mejorar el formateo de salidas (UTF-8) para capturas.
+
+## Avance 2 (en rama develop)
+
+- Trigger de monitoreo: `sql/05_ops/triggers.sql` (registra productos que superan 200.000 unidades tras un INSERT en `stg.sales_clean`).
+- Índices para optimizar consultas del Avance 1: `sql/05_ops/indexes.sql`.
+- Inserción de prueba + verificación del trigger: `sql/05_ops/avance2_insert_and_check.sql`.
+- Evidencias y guía: `documentación/avance2_capturas.md`.
