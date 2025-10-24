@@ -186,4 +186,11 @@ Evidencia: `documentación/capturas_txt/imagen2_top10_y_ranking_categoria.txt`, 
 - Trigger de monitoreo: `sql/05_ops/triggers.sql` (registra productos que superan 200.000 unidades tras un INSERT en `stg.sales_clean`).
 - Índices para optimizar consultas del Avance 1: `sql/05_ops/indexes.sql`.
 - Inserción de prueba + verificación del trigger: `sql/05_ops/avance2_insert_and_check.sql`.
+- Consultas para medir performance (EXPLAIN ANALYZE): `sql/04_analysis/av2_perf_query1_top_seller.sql`, `sql/04_analysis/av2_perf_query2_unique_customers.sql`.
 - Evidencias y guía: `documentación/avance2_capturas.md`.
+
+Cómo ejecutar (resumen):
+1) Cargar staging si hace falta: `sql/01_raw/raw_load.sql` y `sql/02_stg/stg_transform.sql`.
+2) Crear/actualizar trigger: `sql/05_ops/triggers.sql`.
+3) Insertar venta de prueba y verificar el monitoreo: `sql/05_ops/avance2_insert_and_check.sql`.
+4) Medir performance de las dos consultas con EXPLAIN (ANALYZE, BUFFERS) antes y después de `sql/05_ops/indexes.sql` y guardar salidas en `documentación/capturas_txt/`.

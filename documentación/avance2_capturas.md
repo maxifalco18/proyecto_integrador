@@ -11,6 +11,9 @@ Ver `documentación/Consignas_Avances_1_2_3_UNIFICADO_v2.txt` (sección AVANCE 2
 - Trigger de monitoreo: `sql/05_ops/triggers.sql`
 - Índices para consultas seleccionadas: `sql/05_ops/indexes.sql`
 - Inserción + verificación del trigger: `sql/05_ops/avance2_insert_and_check.sql`
+ - Consultas para medir performance (EXPLAIN ANALYZE):
+	 - `sql/04_analysis/av2_perf_query1_top_seller.sql`
+	 - `sql/04_analysis/av2_perf_query2_unique_customers.sql`
 
 ## Evidencias sugeridas (capturas)
 
@@ -24,9 +27,15 @@ Ver `documentación/Consignas_Avances_1_2_3_UNIFICADO_v2.txt` (sección AVANCE 2
 - Guardar salida de la consulta final (monitor) en `documentación/capturas_txt/av2_trigger_monitor.txt`
 
 3) Índices — Antes y después
-- Ejecutar dos consultas del Avance 1 (por ejemplo: top vendedor por producto; clientes únicos por producto)
-- Capturar tiempos antes y después de `sql/05_ops/indexes.sql`
-- Guardar salidas: `documentación/capturas_txt/av2_perf_consulta1_{antes,despues}.txt`, `av2_perf_consulta2_{antes,despues}.txt`
+- Ejecutar las consultas provistas con EXPLAIN (ANALYZE, BUFFERS):
+	- `sql/04_analysis/av2_perf_query1_top_seller.sql`
+	- `sql/04_analysis/av2_perf_query2_unique_customers.sql`
+- Capturar tiempos antes y después de `sql/05_ops/indexes.sql`.
+- Guardar salidas en:
+	- `documentación/capturas_txt/av2_perf_consulta1_antes.txt`
+	- `documentación/capturas_txt/av2_perf_consulta1_despues.txt`
+	- `documentación/capturas_txt/av2_perf_consulta2_antes.txt`
+	- `documentación/capturas_txt/av2_perf_consulta2_despues.txt`
 
 ## Notas
 - El trigger se dispara sobre `stg.sales_clean` (AFTER INSERT) y actualiza `stg.product_sales_monitor` cuando el acumulado del producto supera 200.000 unidades.
