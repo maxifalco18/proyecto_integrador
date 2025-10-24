@@ -1,0 +1,8 @@
+Producto        | Mejor Vendedor | Unidades Vendidas por el Vendedor 
+------------------------+----------------+-----------------------------------
+ Cream Of Tartar        | Daphne King    |                             10551
+ Longos - Chicken Wings | Jean Vang      |                             10785
+ Onion Powder           | Devon Brewer   |                             10570
+ Thyme - Lemon; Fresh   | Devon Brewer   |                             11050
+ Yoghurt Tubes          | Daphne King    |                             10285
+(5 rows)

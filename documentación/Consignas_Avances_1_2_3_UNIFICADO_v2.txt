@@ -1,0 +1,84 @@
+CONSINGAS UNIFICADAS — AVANCE 1, AVANCE 2, AVANCE 3 (LITERAL)
+
+==========================================================================================
+AVANCE 1 — Texto literal (desde imágenes)
+==========================================================================================
+PRIMER AVANCE — Consignas (literal)
+
+Encabezado
+Primer avance
+Carga y exploración de datos en SQL
+
+PI 1 — CONSIGNA
+Desarrollar las siguientes consultas SQL e incluir en un documento una captura de pantalla con la salida de cada una, junto con una breve interpretación. Además, entregar el script SQL completo utilizado.
+
+PI 2 — Preguntas
+Explorar los datos mediante consultas SQL y responder las preguntas planteadas sobre calidad y transformación de los datos:
+• ¿Cuáles fueron los 5 productos más vendidos (por cantidad total), y cuál fue el vendedor que más unidades vendió de cada uno? Una vez obtenga los resultados, en el análisis responde: ¿Hay algún vendedor que aparece más de una vez como el que más vendió un producto? ¿Algunos de estos vendedores representan más del 10% de la ventas de este producto?
+• Entre los 5 productos más vendidos, ¿cuántos clientes únicos compraron cada uno y qué proporción representa sobre el total de clientes? Analiza si ese porcentaje sugiere que el producto fue ampliamente adoptado entre los clientes o si, por el contrario, fue comprado por un grupo reducido que generó un volumen alto de ventas. Compara los porcentajes entre productos e identifica si alguno de ellos depende más de un segmento específico de clientes
+
+PI 3 — Preguntas
+• ¿A qué categorías pertenecen los 5 productos más vendidos y qué proporción representan dentro del total de unidades vendidas de su categoría? Utiliza funciones de ventana para comparar la relevancia de cada producto dentro de su propia categoría.
+• ¿Cuáles son los 10 productos con mayor cantidad de unidades vendidas en todo el catálogo y cuál es su posición dentro de su propia categoría? Utiliza funciones de ventana para identificar el ranking de cada producto en su categoría. Luego, analiza si estos productos son también los líderes dentro de sus categorías o si compiten estrechamente con otros productos de alto rendimiento. ¿Qué observas sobre la concentración de ventas dentro de algunas categorías?
+
+PI 4 — Conocimientos necesarios
+• SQL avanzado
+• Funciones de agregación
+• Funciones de ventana
+• Análisis de resultados
+
+==========================================================================================
+AVANCE 2 — Texto literal (desde imágenes)
+==========================================================================================
+SEGUNDO AVANCE — Consignas (literal)
+
+Descripción
+Ya con los datos integrados, tu desafío es mejorar su calidad y eficiencia de acceso. Como ingeniero/a de datos, te corresponde limpiar inconsistencias y duplicados, así como optimizar consultas SQL críticas para el negocio.
+Esta fase es esencial para garantizar que las operaciones sobre la base de datos sean rápidas, precisas y sostenibles, en un entorno donde el tiempo de respuesta y la precisión son clave para el rendimiento del sistema de análisis.
+
+PI 1 — Script
+Entrega un script SQL completo con las consultas desarrolladas:
+Junto con un documento donde muestres los resultados obtenidos (mediante capturas de pantalla) y agregues una breve interpretación o comentario para cada uno.
+
+PI 2 — Trigger
+Crea un trigger que registre en una tabla de monitoreo cada vez que un producto supere las 200.000 unidades vendidas acumuladas.
+El trigger debe activarse después de insertar una nueva venta y registrar en la tabla el ID del producto, su nombre, la nueva cantidad total de unidades vendidas, y la fecha en que se superó el umbral.
+
+PI 3 — Registro
+Registra una venta correspondiente al vendedor con ID 9, al cliente con ID 84, del producto con ID 103, por una cantidad de 1.876 unidades y un valor de 1200 unidades.
+Consulta la tabla de monitoreo, toma captura de los resultados y realiza un análisis breve de lo ocurrido.
+
+PI 4 — Optimización
+Selecciona dos consultas del avance 1 y crea los índices que consideres más adecuados para optimizar su ejecución.
+Prueba con índices individuales y compuestos, según la lógica de cada consulta. Luego, vuelve a ejecutar ambas consultas y compara los tiempos de ejecución antes y después de aplicar los índices. Finalmente, describe brevemente el impacto que tuvieron los índices en el rendimiento y en qué tipo de columnas resultan más efectivos para este tipo de operaciones.
+
+==========================================================================================
+AVANCE 3 — Texto literal (desde imágenes)
+==========================================================================================
+TERCER AVANCE — Consignas (literal)
+
+Encabezado
+Tercer avance del Proyecto Integrador
+Transformación de datos con Python
+Con los datos ya refinados en SQL, tu próximo paso es transformarlos en información valiosa mediante técnicas de feature engineering. Aquí convertirás datos brutos en atributos que faciliten el entendimiento del negocio.
+El objetivo es construir un dataset completo y funcional, preparado para análisis avanzados o futuros modelos de machine learning, que permita a la empresa aprovechar al máximo el valor de sus datos.
+
+PI 1 — Notebook
+Crea un notebook donde cargues los archivos CSV, respondas cada consigna y justifiques las decisiones tomadas.
+El notebook se debe entregar y debe ser posible visualizar los resultados de cada pregunta:
+El campo TotalPrice en la tabla sales no tiene valores válidos. Utilizando la información de precios de la tabla products, calcula el valor real de la venta para cada registro y almacena en una nueva columna.
+
+PI 2 — Fórmula, outliers y hora
+Utiliza la siguiente fórmula
+TotalPriceCalculated = (Quantity × UnitPrice) × (1 − Discount)
+Detecta los outliers en la columna de ventas totales (TotalPriceCalculated) utilizando el criterio del rango intercuartílico (IQR). Luego, crea una nueva columna llamada IsOutlier que tenga el valor 1 si el registro es un outlier y 0 en caso contrario. ¿Cuántos outliers se detectaron?
+A partir de la columna SalesDate, crea una nueva columna que contenga únicamente la hora de la venta. Luego, identifica en qué hora del día se concentran más ventas totales (TotalPriceCalculated).
+
+PI 3 — Clasificación
+¿La empresa vende más durante los días de semana o en el fin de semana? Clasifica cada venta como Entre semana o Fin de semana a partir de SalesDate y compara el total de ventas entre ambos grupos. ¿En cuál se vende más?
+
+PI 4 — Trabajo en DataFrame
+Como parte del proceso de feature engineering, en el mismo DataFrame en el que vienes trabajando, calcula dos nuevas columnas en el dataset de ventas: (1) La edad del empleado al momento de su contratación y (2) años de experiencia al momento de realizar cada venta. Utiliza las columnas BirthDate, HireDate (de la tabla employees) y SalesDate (de la tabla sales). Asegúrate de trabajar con fechas en formato adecuado.
+
+PI 5 — Dataset
+Prepara un único dataset definitivo para modelado que combine información relevante de las tablas disponibles. Incluye las features que se han calculado previamente. Aplica transformaciones adecuadas a las variables categóricas y a las variables numéricas (si lo consideras necesario) para dejar los datos listos para ser utilizados por un modelo de machine learning. Justifica las transformaciones realizadas. La variable objetivo es TotalPriceCalculated, por lo que debe quedar sin transformaciones.

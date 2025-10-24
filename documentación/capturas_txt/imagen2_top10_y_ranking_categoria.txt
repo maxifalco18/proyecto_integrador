@@ -1,0 +1,13 @@
+        Producto         | Categor??a | Unidades Vendidas | Ranking General | Ranking en Categor??a 
+-------------------------+------------+-------------------+-----------------+-----------------------
+ Cream Of Tartar         | Meat       |            200002 |               1 |                     1
+ Yoghurt Tubes           | Seafood    |            199724 |               2 |                     1
+ Longos - Chicken Wings  | Snails     |            199659 |               3 |                     1
+ Thyme - Lemon; Fresh    | Poultry    |            198567 |               4 |                     1
+ Onion Powder            | Beverages  |            198163 |               5 |                     1
+ Dried Figs              | Produce    |            198032 |               6 |                     1
+ Apricots - Dried        | Snails     |            198032 |               6 |                     2
+ Towels - Paper / Kraft  | Meat       |            198005 |               8 |                     2
+ Wine - Redchard Merritt | Dairy      |            197969 |               9 |                     1
+ Hersey Shakes           | Poultry    |            197942 |              10 |                     2
+(10 rows)

@@ -1,0 +1,33 @@
+# Editors/IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+.env
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+build/
+dist/
+
+# Logs
+*.log
+
+# Large data not tracked in repo (exceeds GitHub 100MB limit)
+data/sales.csv

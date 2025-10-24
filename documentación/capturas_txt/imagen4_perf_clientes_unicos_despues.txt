@@ -1,0 +1,13 @@
+QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=0.43..208159.48 rows=453 width=12) (actual time=15.191..6789.028 rows=469 loops=1)
+   Group Key: product_id
+   ->  Index Only Scan using idx_sales_product_customer on sales_clean  (cost=0.43..174364.32 rows=6758126 width=8) (actual time=0.157..4961.426 rows=6758126 loops=1)
+         Heap Fetches: 51
+ Planning Time: 1.324 ms
+ JIT:
+   Functions: 3
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 0.988 ms, Inlining 0.000 ms, Optimization 0.534 ms, Emission 5.311 ms, Total 6.833 ms
+ Execution Time: 6851.496 ms
+(10 rows)

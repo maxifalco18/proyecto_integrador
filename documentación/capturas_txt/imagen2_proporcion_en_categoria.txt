@@ -1,0 +1,8 @@
+        Producto        | Categor??a | Unidades Vendidas (Producto) | Unidades Vendidas (Categor??a) | Proporci??n en la Categor??a (%) 
+------------------------+------------+------------------------------+--------------------------------+----------------------------------
+ Cream Of Tartar        | Meat       |                       200002 |                        9721150 |           2.05739032933346363300
+ Yoghurt Tubes          | Seafood    |                       199724 |                        6996142 |           2.85477338796153651500
+ Longos - Chicken Wings | Snails     |                       199659 |                        7199358 |           2.77328895159818417100
+ Thyme - Lemon; Fresh   | Poultry    |                       198567 |                        9159792 |           2.16781123414156129300
+ Onion Powder           | Beverages  |                       198163 |                        7393693 |           2.68016267378155949900
+(5 rows)

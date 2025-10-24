@@ -1,0 +1,8 @@
+        Producto        | % Top 10 Clientes | % Top 1% Clientes |   Diagn??stico   
+------------------------+-------------------+-------------------+------------------
+ Cream Of Tartar        |              1.26 |              4.47 | Amplia adopci??n
+ Thyme - Lemon; Fresh   |              0.36 |              3.60 | Amplia adopci??n
+ Longos - Chicken Wings |              0.36 |              3.61 | Amplia adopci??n
+ Yoghurt Tubes          |              0.36 |              3.59 | Amplia adopci??n
+ Onion Powder           |              0.36 |              3.60 | Amplia adopci??n
+(5 rows)

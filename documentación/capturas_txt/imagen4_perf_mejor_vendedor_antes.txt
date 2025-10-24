@@ -1,0 +1,48 @@
+QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=269908.77..270171.85 rows=52 width=16) (actual time=2547.579..2547.742 rows=5 loops=1)
+   Hash Cond: ((s.product_id = seller.product_id) AND (s.qty = (max(seller.qty))))
+   CTE seller
+     ->  HashAggregate  (cost=269537.10..269641.29 rows=10419 width=16) (actual time=2545.784..2546.026 rows=115 loops=1)
+           Group Key: s_1.product_id, s_1.salesperson_id
+           Batches: 1  Memory Usage: 417kB
+           ->  Nested Loop  (cost=120298.16..268977.65 rows=74593 width=12) (actual time=1854.990..2504.949 rows=76245 loops=1)
+                 ->  Limit  (cost=120130.11..120130.12 rows=5 width=12) (actual time=1840.184..1840.332 rows=5 loops=1)
+                       ->  Sort  (cost=120130.11..120131.24 rows=453 width=12) (actual time=1815.053..1815.194 rows=5 loops=1)
+                             Sort Key: (sum(sales_clean.quantity)) DESC
+                             Sort Method: top-N heapsort  Memory: 25kB
+                             ->  Finalize GroupAggregate  (cost=120007.82..120122.59 rows=453 width=12) (actual time=1813.965..1814.997 rows=469 loops=1)
+                                   Group Key: sales_clean.product_id
+                                   ->  Gather Merge  (cost=120007.82..120113.53 rows=906 width=12) (actual time=1813.875..1814.516 rows=1373 loops=1)
+                                         Workers Planned: 2
+                                         Workers Launched: 2
+                                         ->  Sort  (cost=119007.79..119008.93 rows=453 width=12) (actual time=1787.772..1787.823 rows=458 loops=3)
+                                               Sort Key: sales_clean.product_id
+                                               Sort Method: quicksort  Memory: 50kB
+                                               Worker 0:  Sort Method: quicksort  Memory: 49kB
+                                               Worker 1:  Sort Method: quicksort  Memory: 49kB
+                                               ->  Partial HashAggregate  (cost=118983.28..118987.81 rows=453 width=12) (actual time=1787.298..1787.461 rows=458 loops=3)
+                                                     Group Key: sales_clean.product_id
+                                                     Batches: 1  Memory Usage: 105kB
+                                                     Worker 0:  Batches: 1  Memory Usage: 93kB
+                                                     Worker 1:  Batches: 1  Memory Usage: 93kB
+                                                     ->  Parallel Seq Scan on sales_clean  (cost=0.00..104903.85 rows=2815885 width=8) (actual time=0.044..717.944 rows=2252709 loops=3)
+                 ->  Bitmap Heap Scan on sales_clean s_1  (cost=168.05..29620.31 rows=14919 width=12) (actual time=12.200..127.741 rows=15249 loops=5)
+                       Recheck Cond: (product_id = sales_clean.product_id)
+                       Heap Blocks: exact=69301
+                       ->  Bitmap Index Scan on idx_stg_sales_clean_productid  (cost=0.00..164.32 rows=14919 width=0) (actual time=7.178..7.178 rows=15249 loops=5)
+                             Index Cond: (product_id = sales_clean.product_id)
+   ->  CTE Scan on seller s  (cost=0.00..208.38 rows=10419 width=16) (actual time=2545.791..2545.802 rows=115 loops=1)
+   ->  Hash  (cost=264.48..264.48 rows=200 width=12) (actual time=0.242..0.244 rows=5 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  HashAggregate  (cost=260.48..262.48 rows=200 width=12) (actual time=0.232..0.234 rows=5 loops=1)
+               Group Key: seller.product_id
+               Batches: 1  Memory Usage: 40kB
+               ->  CTE Scan on seller  (cost=0.00..208.38 rows=10419 width=12) (actual time=0.004..0.150 rows=115 loops=1)
+ Planning Time: 0.991 ms
+ JIT:
+   Functions: 48
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 3.179 ms, Inlining 0.000 ms, Optimization 2.366 ms, Emission 40.040 ms, Total 45.585 ms
+ Execution Time: 2582.419 ms
+(45 rows)

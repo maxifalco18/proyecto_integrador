@@ -1,0 +1,3 @@
+ Producto | Vendedor | % del Producto | Veces en Top5 (cualquier rol) 
+----------+----------+----------------+-------------------------------
+(0 rows)

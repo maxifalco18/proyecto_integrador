@@ -1,0 +1,46 @@
+QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=269908.77..270171.85 rows=52 width=16) (actual time=4452.285..4452.449 rows=5 loops=1)
+   Hash Cond: ((s.product_id = seller.product_id) AND (s.qty = (max(seller.qty))))
+   CTE seller
+     ->  HashAggregate  (cost=269537.11..269641.30 rows=10419 width=16) (actual time=4451.875..4452.120 rows=115 loops=1)
+           Group Key: s_1.product_id, s_1.salesperson_id
+           Batches: 1  Memory Usage: 417kB
+           ->  Nested Loop  (cost=120298.17..268977.66 rows=74593 width=12) (actual time=3074.191..4346.733 rows=76245 loops=1)
+                 ->  Limit  (cost=120130.12..120130.13 rows=5 width=12) (actual time=3054.045..3054.191 rows=5 loops=1)
+                       ->  Sort  (cost=120130.12..120131.25 rows=453 width=12) (actual time=2972.620..2972.755 rows=5 loops=1)
+                             Sort Key: (sum(sales_clean.quantity)) DESC
+                             Sort Method: top-N heapsort  Memory: 25kB
+                             ->  Finalize GroupAggregate  (cost=120007.83..120122.59 rows=453 width=12) (actual time=2971.604..2972.527 rows=469 loops=1)
+                                   Group Key: sales_clean.product_id
+                                   ->  Gather Merge  (cost=120007.83..120113.53 rows=906 width=12) (actual time=2971.526..2972.093 rows=1373 loops=1)
+                                         Workers Planned: 2
+                                         Workers Launched: 2
+                                         ->  Sort  (cost=119007.80..119008.94 rows=453 width=12) (actual time=2886.552..2886.603 rows=458 loops=3)
+                                               Sort Key: sales_clean.product_id
+                                               Sort Method: quicksort  Memory: 49kB
+                                               ->  Partial HashAggregate  (cost=118983.29..118987.82 rows=453 width=12) (actual time=2883.080..2883.192 rows=458 loops=3)
+                                                     Group Key: sales_clean.product_id
+                                                     Batches: 1  Memory Usage: 93kB
+                                                     Worker 0:  Batches: 1  Memory Usage: 105kB
+                                                     Worker 1:  Batches: 1  Memory Usage: 93kB
+                                                     ->  Parallel Seq Scan on sales_clean  (cost=0.00..104903.86 rows=2815886 width=8) (actual time=0.033..1031.430 rows=2252709 loops=3)
+                 ->  Bitmap Heap Scan on sales_clean s_1  (cost=168.05..29620.31 rows=14919 width=12) (actual time=20.719..247.549 rows=15249 loops=5)
+                       Recheck Cond: (product_id = sales_clean.product_id)
+                       Heap Blocks: exact=69301
+                       ->  Bitmap Index Scan on idx_stg_sales_clean_productid  (cost=0.00..164.32 rows=14919 width=0) (actual time=8.812..8.812 rows=15249 loops=5)
+                             Index Cond: (product_id = sales_clean.product_id)
+   ->  CTE Scan on seller s  (cost=0.00..208.38 rows=10419 width=16) (actual time=4451.881..4451.896 rows=115 loops=1)
+   ->  Hash  (cost=264.48..264.48 rows=200 width=12) (actual time=0.250..0.252 rows=5 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  HashAggregate  (cost=260.48..262.48 rows=200 width=12) (actual time=0.236..0.238 rows=5 loops=1)
+               Group Key: seller.product_id
+               Batches: 1  Memory Usage: 40kB
+               ->  CTE Scan on seller  (cost=0.00..208.38 rows=10419 width=12) (actual time=0.001..0.177 rows=115 loops=1)
+ Planning Time: 6.241 ms
+ JIT:
+   Functions: 48
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 5.657 ms, Inlining 0.000 ms, Optimization 3.212 ms, Emission 113.778 ms, Total 122.647 ms
+ Execution Time: 4548.790 ms
+(45 rows)

@@ -1,0 +1,14 @@
+ Categor??a  |           L??der            | Unidades L??der |              Segundo              | Unidades Segundo | %L??der/Categor??a | Ratio L??der/Segundo |      Diagn??stico      
+-------------+-----------------------------+-----------------+-----------------------------------+------------------+--------------------+----------------------+------------------------
+ Grain       | Isomalt                     |          196760 | Grenadine                         |           196031 |               3.62 |                 1.00 | Categor??a competitiva
+ Dairy       | Wine - Redchard Merritt     |          197969 | Beef - Short Loin                 |           197725 |               2.90 |                 1.00 | Categor??a competitiva
+ Seafood     | Yoghurt Tubes               |          199724 | Tea - Decaf Lipton                |           196983 |               2.85 |                 1.01 | Categor??a competitiva
+ Shell fish  | Pepper - Paprika; Hungarian |          196743 | Appetizer - Mini Egg Roll; Shrimp |           196353 |               2.82 |                 1.00 | Categor??a competitiva
+ Snails      | Longos - Chicken Wings      |          199659 | Apricots - Dried                  |           198032 |               2.77 |                 1.01 | Categor??a competitiva
+ Beverages   | Onion Powder                |          198163 | Bouq All Italian - Primerba       |           197614 |               2.68 |                 1.00 | Categor??a competitiva
+ Produce     | Dried Figs                  |          198032 | Beef - Chuck; Boneless            |           197584 |               2.37 |                 1.00 | Categor??a competitiva
+ Cereals     | Cookies Cereal Nut          |          197343 | Sugar - Fine                      |           196382 |               2.26 |                 1.00 | Categor??a competitiva
+ Poultry     | Thyme - Lemon; Fresh        |          198567 | Hersey Shakes                     |           197942 |               2.17 |                 1.00 | Categor??a competitiva
+ Meat        | Cream Of Tartar             |          200002 | Towels - Paper / Kraft            |           198005 |               2.06 |                 1.01 | Categor??a competitiva
+ Confections | Mussels - Cultivated        |          197318 | Wine - Red; Cooking               |           197020 |               1.78 |                 1.00 | Categor??a competitiva
+(11 rows)

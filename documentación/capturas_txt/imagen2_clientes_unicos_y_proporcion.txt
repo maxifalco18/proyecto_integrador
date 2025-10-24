@@ -1,0 +1,8 @@
+      product_name      | unique_customers_per_product | total_unique_customers | percentage_of_total_customers 
+------------------------+------------------------------+------------------------+-------------------------------
+ Cream Of Tartar        |                        14247 |                  98759 |       14.42602699500804989900
+ Yoghurt Tubes          |                        14066 |                  98759 |       14.24275255926042183500
+ Longos - Chicken Wings |                        14252 |                  98759 |       14.43108982472483520500
+ Thyme - Lemon; Fresh   |                        14101 |                  98759 |       14.27819236727791897400
+ Onion Powder           |                        14058 |                  98759 |       14.23465203171356534600
+(5 rows)
