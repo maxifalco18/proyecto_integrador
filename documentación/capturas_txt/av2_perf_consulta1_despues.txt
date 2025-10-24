@@ -1,0 +1,36 @@
+                                                                                  QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Subquery Scan on b  (cost=38270.70..38528.20 rows=40 width=16) (actual time=77.061..77.073 rows=1 loops=1)
+   Output: b.product_id, b.salesperson_id, b.qty
+   Filter: (b.rn = 1)
+   Buffers: shared hit=13963
+   ->  WindowAgg  (cost=38270.70..38429.16 rows=7923 width=24) (actual time=77.054..77.066 rows=1 loops=1)
+         Output: pt.product_id, pt.salesperson_id, pt.qty, row_number() OVER (?)
+         Run Condition: (row_number() OVER (?) <= 1)
+         Buffers: shared hit=13963
+         ->  Sort  (cost=38270.70..38290.51 rows=7923 width=16) (actual time=77.033..77.038 rows=23 loops=1)
+               Output: pt.product_id, pt.qty, pt.salesperson_id
+               Sort Key: pt.qty DESC
+               Sort Method: quicksort  Memory: 26kB
+               Buffers: shared hit=13963
+               ->  Subquery Scan on pt  (cost=37599.16..37757.62 rows=7923 width=16) (actual time=76.792..76.886 rows=23 loops=1)
+                     Output: pt.product_id, pt.qty, pt.salesperson_id
+                     Buffers: shared hit=13960
+                     ->  HashAggregate  (cost=37599.16..37678.39 rows=7923 width=16) (actual time=76.788..76.877 rows=23 loops=1)
+                           Output: s.product_id, s.salesperson_id, sum(s.quantity)
+                           Group Key: s.product_id, s.salesperson_id
+                           Batches: 1  Memory Usage: 409kB
+                           Buffers: shared hit=13960
+                           ->  Bitmap Heap Scan on stg.sales_clean s  (cost=167.67..37487.63 rows=14870 width=12) (actual time=8.655..68.484 rows=15305 loops=1)
+                                 Output: s.sales_id, s.salesperson_id, s.customer_id, s.product_id, s.quantity, s.discount, s.total_price, s.sales_date, s.transaction_number
+                                 Recheck Cond: (s.product_id = 103)
+                                 Heap Blocks: exact=13944
+                                 Buffers: shared hit=13960
+                                 ->  Bitmap Index Scan on idx_stg_sales_clean_productid  (cost=0.00..163.96 rows=14870 width=0) (actual time=4.795..4.796 rows=15305 loops=1)
+                                       Index Cond: (s.product_id = 103)
+                                       Buffers: shared hit=16
+ Planning:
+   Buffers: shared hit=149 read=2
+ Planning Time: 1.968 ms
+ Execution Time: 78.686 ms
+(33 rows)

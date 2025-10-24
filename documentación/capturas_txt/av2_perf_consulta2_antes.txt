@@ -1,0 +1,33 @@
+                                                                                                                      QUERY PLAN                                                                                                
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------                                                                                                                                                                                                         Nested Loop  (cost=161389.25..198803.96 rows=453 width=52) (actual time=13895.409..13895.417 rows=1 loops=1)
+   Output: s.product_id, (count(DISTINCT s.customer_id)), (count(DISTINCT sales_clean.customer_id)), round(((((count(DISTINCT s.customer_id)))::numeric / (NULLIF((count(DISTINCT sales_clean.customer_id)), 0))::numeric) * '1
+00'::numeric), 2)                                                                                                                                                                                                                 Buffers: shared hit=29976 read=60732, temp read=19845 written=19883
+   ->  Aggregate  (cost=161221.58..161221.59 rows=1 width=8) (actual time=13821.734..13821.737 rows=1 loops=1)
+         Output: count(DISTINCT sales_clean.customer_id)
+         Buffers: shared hit=16016 read=60732, temp read=19845 written=19883
+         ->  Seq Scan on stg.sales_clean  (cost=0.00..144326.26 rows=6758126 width=4) (actual time=4.895..5064.494 rows=6758127 loops=1)
+               Output: sales_clean.sales_id, sales_clean.salesperson_id, sales_clean.customer_id, sales_clean.product_id, sales_clean.quantity, sales_clean.discount, sales_clean.total_price, sales_clean.sales_date, sales_cl
+ean.transaction_number                                                                                                                                                                                                                        Buffers: shared hit=16013 read=60732
+   ->  GroupAggregate  (cost=167.67..37566.51 rows=453 width=12) (actual time=72.066..72.068 rows=1 loops=1)
+         Output: s.product_id, count(DISTINCT s.customer_id)
+         Group Key: s.product_id
+         Buffers: shared hit=13960
+         ->  Bitmap Heap Scan on stg.sales_clean s  (cost=167.67..37487.63 rows=14870 width=8) (actual time=6.846..64.254 rows=15305 loops=1)
+               Output: s.sales_id, s.salesperson_id, s.customer_id, s.product_id, s.quantity, s.discount, s.total_price, s.sales_date, s.transaction_number
+               Recheck Cond: (s.product_id = 103)
+               Heap Blocks: exact=13944
+               Buffers: shared hit=13960
+               ->  Bitmap Index Scan on idx_stg_sales_clean_productid  (cost=0.00..163.96 rows=14870 width=0) (actual time=2.938..2.938 rows=15305 loops=1)
+                     Index Cond: (s.product_id = 103)
+                     Buffers: shared hit=16
+ Planning:
+   Buffers: shared hit=66 read=1
+ Planning Time: 1.966 ms
+ JIT:
+   Functions: 11
+   Options: Inlining false, Optimization false, Expressions true, Deforming true
+   Timing: Generation 1.011 ms, Inlining 0.000 ms, Optimization 5.445 ms, Emission 77.676 ms, Total 84.132 ms
+ Execution Time: 14077.884 ms
+(29 rows)
