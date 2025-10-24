@@ -194,3 +194,11 @@ Cómo ejecutar (resumen):
 2) Crear/actualizar trigger: `sql/05_ops/triggers.sql`.
 3) Insertar venta de prueba y verificar el monitoreo: `sql/05_ops/avance2_insert_and_check.sql`.
 4) Medir performance de las dos consultas con EXPLAIN (ANALYZE, BUFFERS) antes y después de `sql/05_ops/indexes.sql` y guardar salidas en `documentación/capturas_txt/`.
+
+### Checklist de evidencias (Avance 2)
+
+| Entregable | Qué se valida | Evidencia sugerida |
+|---|---|---|
+| Trigger de monitoreo | Registro en `stg.product_sales_monitor` cuando un producto supera 200.000 | `documentación/capturas_txt/av2_trigger_monitor.txt` |
+| Consulta 1 — Top vendedor por producto | EXPLAIN ANALYZE antes y después de índices | `documentación/capturas_txt/av2_perf_consulta1_antes.txt`, `documentación/capturas_txt/av2_perf_consulta1_despues.txt` |
+| Consulta 2 — Clientes únicos por producto | EXPLAIN ANALYZE antes y después de índices | `documentación/capturas_txt/av2_perf_consulta2_antes.txt`, `documentación/capturas_txt/av2_perf_consulta2_despues.txt` |
