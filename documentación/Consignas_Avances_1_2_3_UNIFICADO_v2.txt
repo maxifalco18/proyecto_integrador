@@ -1,8 +1,9 @@
-CONSINGAS UNIFICADAS — AVANCE 1, AVANCE 2, AVANCE 3 (LITERAL)
+CONSINGAS UNIFICADAS — AVANCE 1, AVANCE 2, AVANCE 3 y AVANCE 4 (LITERAL)
 
 ==========================================================================================
 AVANCE 1 — Texto literal (desde imágenes)
-==========================================================================================
+=========================================
+
 PRIMER AVANCE — Consignas (literal)
 
 Encabezado
@@ -29,7 +30,8 @@ PI 4 — Conocimientos necesarios
 
 ==========================================================================================
 AVANCE 2 — Texto literal (desde imágenes)
-==========================================================================================
+=========================================
+
 SEGUNDO AVANCE — Consignas (literal)
 
 Descripción
@@ -54,7 +56,8 @@ Prueba con índices individuales y compuestos, según la lógica de cada consult
 
 ==========================================================================================
 AVANCE 3 — Texto literal (desde imágenes)
-==========================================================================================
+=========================================
+
 TERCER AVANCE — Consignas (literal)
 
 Encabezado
@@ -82,3 +85,45 @@ Como parte del proceso de feature engineering, en el mismo DataFrame en el que v
 
 PI 5 — Dataset
 Prepara un único dataset definitivo para modelado que combine información relevante de las tablas disponibles. Incluye las features que se han calculado previamente. Aplica transformaciones adecuadas a las variables categóricas y a las variables numéricas (si lo consideras necesario) para dejar los datos listos para ser utilizados por un modelo de machine learning. Justifica las transformaciones realizadas. La variable objetivo es TotalPriceCalculated, por lo que debe quedar sin transformaciones.
+
+==========================================================================================
+AVANCE 4 — Texto literal (desde imágenes)
+=========================================
+
+CUARTO AVANCE Y EXTRA CREDIT — Consignas (literal)
+
+Encabezado
+Cuarto avance y Extra credit del Proyecto Integrador
+
+Optimización y estructuración del código en Python + Extra credit
+
+Después de modelar y transformar los datos, tu siguiente paso es consolidar la arquitectura técnica del sistema. En esta etapa deberás aplicar principios de programación eficiente y patrones de diseño en Python que aseguren un código limpio, escalable y mantenible.
+
+El objetivo es dejar el sistema listo para entornos reales, con capacidad de adaptarse a nuevas necesidades sin reescribir toda la lógica existente.
+
+PI 1 — Aplicar algoritmos clásicos de manejo de datos
+Por ejemplo, cálculo de sumas en ventanas, ordenamiento, búsqueda máxima, etc. Junto con estructuras de datos eficientes para recorrer y procesar los registros.
+
+PI 2 — Periodo óptimo de 5 días consecutivos (con el DataFrame del Avance 3)
+Continuando con el dataFrame final que armaste en el Avance 3, debes encontrar el periodo de 5 días consecutivos con el mayor volumen de ventas totales. Para resolverlo, se pide:
+• Aplicar algoritmos clásicos de manejo de datos (por ejemplo, cálculo de sumas en ventanas, ordenamiento, búsqueda máxima, etc) junto con estructuras de datos eficientes para recorrer y procesar los registros.
+• Implementar al menos 2 enfoques para solucionar el problema (por ejemplo, un enfoque de fuerza bruta, un enfoque optimizado, uso de operaciones vectoriales con pandas etc).
+• Utilizar herramientas de perfilamiento (como el módulo timeit) para medir y comparar los tiempos de ejecución de cada enfoque.
+
+PI 3 — Extra credit
+Tomando como base la lógica de la pregunta anterior (encontrar el mejor periodo de ventas), se pide reformular la solución usando un patrón de diseño como Factory Method, Builder o Strategy. En particular, debemos encapsular la lógica de análisis de tal forma que el sistema permita generar distintos tipos de análisis de manera extensible, sin necesidad de modificar el código existente cada vez que se añade un nuevo tipo de cálculo. La tarea específica es:
+• Diseñar una estructura orientada a objetos donde la lógica de encontrar los 5 días consecutivos con mayores ventas esté encapsulada en una clase siguiendo un patrón de diseño. Por ejemplo, implementar un patrón Strategy, donde se defina una interfaz genérica de análisis y clases concretas para distintos análisis (uno de ellos será el análisis de máximos 5 días consecutivos).
+• Incorporar un mecanismo para que el sistema elija o cree el análisis deseado en tiempo de ejecución (por ejemplo, mediante un factory method simple que devuelva la estrategia apropiada según un parámetro).
+• Demostrar cómo añadir fácilmente nuevos tipos de análisis (por ejemplo, podríamos agregar un análisis de "día de máxima venta individual", promedio de ventas, etc.) creando nuevas clases sin tocar el código central.
+
+Conocimientos necesarios
+• POO en Python
+• Estructuras de datos eficientes
+• Profiling
+• Patrones de diseño (Strategy, Factory)
+
+Tech Stack necesario
+• Python
+• Jupyter Notebook
+• timeit para profiling
+• Pandas

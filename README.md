@@ -1,4 +1,4 @@
-# Proyecto Integrador — Avances 1 y 2
+# Proyecto Integrador — Avances 1, 2 y 3
 
 Este README cubre el Avance 1 (carga y exploración de datos) y resume el Avance 2 (trigger, índices y medición de performance). Para cada consigna, se incluye la salida (capturas/tablas) y una interpretación breve.
 
@@ -15,6 +15,10 @@ Este README cubre el Avance 1 (carga y exploración de datos) y resume el Avance
     - Inserción de prueba + verificación: `sql/05_ops/avance2_insert_and_check.sql`
     - Consultas para medir performance: `sql/04_analysis/av2_perf_query1_top_seller.sql`, `sql/04_analysis/av2_perf_query2_unique_customers.sql`
     - Evidencias: `documentación/avance2_capturas.md` y archivos en `documentación/capturas_txt/`
+-  Avance 3
+   - Notebook: `notebooks/avance3.ipynb` (carga CSVs, cálculo TotalPriceCalculated, outliers IQR, hora pico, semana vs finde, edad/experiencia, dataset final)
+   - Dataset final para modelado (generado): `data/processed/final_dataset.csv`
+   - Resultados y justificaciones integrados en el notebook (celdas markdown + outputs)
 - Datos CSV: `data/` (ver nota sobre archivos grandes más abajo)
 - Documentación de repo: `.gitignore`, `.github/pull_request_template.md`
  
@@ -24,11 +28,14 @@ Estructura actual (ruta base: `c:\Users\CTI23994\Dropbox\Data Engineering - HENR
 ```
 / (raíz)
 ├─ data/                       # CSV de entrada
+│  └─ processed/               # artefactos generados (p.ej., final_dataset.csv)
 ├─ documentación/
 │  ├─ avance1_capturas.md      # evidencias Avance 1
 │  ├─ avance2_capturas.md      # guía y evidencias Avance 2
 │  ├─ capturas_txt/            # salidas en texto (no se listan todas aquí)
 │  └─ Consignas_Avances_1_2_3_UNIFICADO_v2.txt
+├─ notebooks/
+│  └─ avance3.ipynb            # notebook del Avance 3 (end-to-end)
 ├─ sql/
 │  ├─ 01_raw/
 │  │  └─ raw_load.sql
@@ -224,3 +231,29 @@ Cómo ejecutar (resumen):
 ### Nota sobre datos grandes
 
 - El archivo `data/sales.csv` no está versionado en el repositorio por superar 100 MB. Asegúrate de tenerlo localmente en `data/` para poder reconstruir el staging. Si se requiere compartirlo, usar un método alternativo (drive/LFS) indicado por la cátedra.
+
+## Avance 3 — Transformación de datos con Python
+
+- Notebook: `notebooks/avance3.ipynb`.
+- Qué hace: carga CSVs, calcula `TotalPriceCalculated = (Quantity × UnitPrice) × (1 − Discount)`, detecta outliers (IQR → `IsOutlier`), deriva `SaleHour` y hora pico, clasifica semana vs fin de semana, calcula `AgeAtHire` y `YearsExperience`, y arma un dataset final listo para modelar.
+- Salida: `data/processed/final_dataset.csv` (generado localmente).
+
+Cómo ejecutar (resumen):
+1) Abrir y ejecutar todas las celdas en `notebooks/avance3.ipynb`.
+2) Verificar los resultados impresos (conteo de outliers, hora pico, comparación semana/fin de semana, descriptores de edad/experiencia).
+3) Confirmar que se genera `data/processed/final_dataset.csv`.
+
+Resultados rápidos (según ejecución actual):
+- Outliers detectados (IQR) en `TotalPriceCalculated`: 48.217 (~0,71%).
+- Hora con mayor venta total: 16 h.
+- Ventas totales por categoría de semana: Entre semana ≫ Fin de semana.
+- Dataset final: 6.758.125 filas × 24 columnas.
+
+Features incluidas destacadas:
+- Objetivo: `TotalPriceCalculated` (sin transformaciones, como pide la consigna).
+- Señales: `IsOutlier`, `SaleHour`, `Weekend`, `AgeAtHire`, `YearsExperience`.
+- Categóricas: `CategoryName` con one-hot controlado (baja cardinalidad).
+
+Notas:
+- `Discount` se normaliza a [0, 1] si viniera en porcentaje entero.
+- `final_dataset.csv` puede no versionarse si supera los límites del repositorio; se genera localmente desde el notebook.

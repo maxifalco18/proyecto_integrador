@@ -31,3 +31,6 @@ dist/
 
 # Large data not tracked in repo (exceeds GitHub 100MB limit)
 data/sales.csv
+
+# Generated datasets and processed artifacts (not versioned)
+data/processed/
